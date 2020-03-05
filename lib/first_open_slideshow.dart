@@ -45,8 +45,10 @@ class _SlideshowState extends State<Slideshow> {
   Widget build(BuildContext context) {
     if (loading) {
       return this.widget.loadingPage ??
-          Center(
-            child: CircularProgressIndicator(),
+          Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
           );
     }
 

@@ -1,6 +1,6 @@
 name: first_open_slideshow
 description: Display a slideshow on first open
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/felixwortmann/first_open_slideshow
 
 environment:
@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   flare_splash_screen: ^3.0.0
   shared_preferences: ^0.5.6+2
+  animations:
+
 
 dev_dependencies:
   flutter_test:
@@ -19,3 +21,4 @@ dev_dependencies:
 flutter:
   assets:
     - assets/flare/
+    - assets/flare/send_success.flr

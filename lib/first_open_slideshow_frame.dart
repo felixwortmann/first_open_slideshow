@@ -1,72 +1,78 @@
 import 'dart:ui';
+import 'package:animations/animations.dart';
 import 'package:first_open_slideshow/slideshow_item_widget.dart';
 import 'package:flare_splash_screen/flare_splash_screen.dart';
 import 'package:flutter/material.dart';
+
+const double PAGE_ITEM_ICON_SIZE = 250;
 
 class FirstOpenSlideshowFrame extends StatefulWidget {
   static const String FIRST_RUN_PREF_KEY = "FIRST_RUN_PREF_KEY";
   static String stringForNext = "";
   final List<PageItem> pageItems;
   final VoidCallback finishCallback;
+  final Duration animationDuration;
+
   FirstOpenSlideshowFrame(
     this.finishCallback, {
     Key key,
     @required this.pageItems,
     @required stringForNext,
+    this.animationDuration,
   }) {
     FirstOpenSlideshowFrame.stringForNext = stringForNext;
   }
 
   @override
-  _FirstOpenSlideshowFrameState createState() => _FirstOpenSlideshowFrameState();
+  _FirstOpenSlideshowFrameState createState() =>
+      _FirstOpenSlideshowFrameState();
 }
 
 class _FirstOpenSlideshowFrameState extends State<FirstOpenSlideshowFrame> {
   bool showOverlay = false;
-  PageController pageController;
-
-  @override
-  void initState() {
-    pageController = PageController();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    pageController.dispose();
-    super.dispose();
-  }
+  int currentPage = 0;
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Stack(
         children: [
-          PageView(
-            controller: pageController,
-            scrollDirection: Axis.horizontal,
-            children: widget.pageItems
-                .map(
-                  (pageItem) => PageItemWidget.fromPageItem(
-                    pageItem,
-                    () {
-                      if (pageItem == widget.pageItems.last) {
-                        finishPage(context);
-                      } else {
-                        goToNextPage();
-                      }
-                    },
-                  ),
-                )
-                .toList(),
-          ),
+          PageTransitionSwitcher(
+              duration: this.widget.animationDuration,
+              transitionBuilder: (
+                Widget child,
+                Animation<double> animation,
+                Animation<double> secondaryAnimation,
+              ) {
+                return SharedAxisTransition(
+                    animation: animation,
+                    secondaryAnimation: secondaryAnimation,
+                    transitionType: SharedAxisTransitionType.horizontal,
+                    child: child);
+              },
+              child: Container(
+                key: ValueKey<int>(this.currentPage),
+                child: PageItemWidget.fromPageItem(
+                  widget.pageItems[currentPage],
+                  () {
+                    if (widget.pageItems[currentPage] ==
+                        widget.pageItems.last) {
+                      finishPage(context);
+                    } else {
+                      setState(() {
+                        currentPage++;
+                      });
+                    }
+                  },
+                ),
+              )),
           showOverlay
               ? BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
                   child: Center(
                     child: Container(
-                      width: 250,
-                      height: 250,
+                      width: PAGE_ITEM_ICON_SIZE,
+                      height: PAGE_ITEM_ICON_SIZE,
                       child: SplashScreen.callback(
                         name: 'assets/flare/send_success.flr',
                         onSuccess: (_) {
@@ -98,13 +104,6 @@ class _FirstOpenSlideshowFrameState extends State<FirstOpenSlideshowFrame> {
       },
     );
   }
-
-  void goToNextPage() {
-    setState(() {
-      pageController.nextPage(
-          duration: Duration(milliseconds: 500), curve: Curves.ease);
-    });
-  }
 }
 
 class PageItem {
@@ -133,8 +132,8 @@ class PageIconContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 250,
-      width: 250,
+      height: PAGE_ITEM_ICON_SIZE,
+      width: PAGE_ITEM_ICON_SIZE,
       child: this.icon,
     );
   }

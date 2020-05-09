@@ -9,12 +9,14 @@ class Slideshow extends StatefulWidget {
   final Widget loadingPage;
   final List<PageItem> slideShowItems;
   final String stringForNext;
+  final Duration animationDuration;
 
   const Slideshow({
     Key key,
     @required this.whenFinished,
     @required this.slideShowItems,
     @required this.stringForNext,
+    this.animationDuration = const Duration(milliseconds: 300),
     this.loadingPage,
   }) : super(key: key);
 
@@ -53,6 +55,7 @@ class _SlideshowState extends State<Slideshow> {
     }
 
     if (finishedShowing) {
+      print("finished");
       return this.widget.whenFinished;
     }
     return FirstOpenSlideshowFrame(
@@ -64,6 +67,7 @@ class _SlideshowState extends State<Slideshow> {
       },
       pageItems: this.widget.slideShowItems,
       stringForNext: this.widget.stringForNext,
+      animationDuration: this.widget.animationDuration,
     );
   }
 }

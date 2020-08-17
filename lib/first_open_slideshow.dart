@@ -3,6 +3,7 @@ library first_open_slideshow;
 import 'package:first_open_slideshow/first_open_slideshow_frame.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:first_open_slideshow/slideshow_item_widget.dart';
 
 class Slideshow extends StatefulWidget {
   final Widget whenFinished;
@@ -10,6 +11,7 @@ class Slideshow extends StatefulWidget {
   final List<PageItem> slideShowItems;
   final String stringForNext;
   final Duration animationDuration;
+  final bool listViewInsteadOfSlideshow;
 
   const Slideshow({
     Key key,
@@ -18,6 +20,7 @@ class Slideshow extends StatefulWidget {
     @required this.stringForNext,
     this.animationDuration = const Duration(milliseconds: 300),
     this.loadingPage,
+    this.listViewInsteadOfSlideshow = false,
   }) : super(key: key);
 
   @override
@@ -58,16 +61,29 @@ class _SlideshowState extends State<Slideshow> {
       print("finished");
       return this.widget.whenFinished;
     }
-    return FirstOpenSlideshowFrame(
-      () {
-        SharedPreferences.getInstance().then((prefs) {
-          prefs.setBool(FirstOpenSlideshowFrame.FIRST_RUN_PREF_KEY, false);
-        });
-        setState(() => finishedShowing = true);
-      },
-      pageItems: this.widget.slideShowItems,
-      stringForNext: this.widget.stringForNext,
-      animationDuration: this.widget.animationDuration,
-    );
+    if (this.widget.listViewInsteadOfSlideshow) {
+      return ListView(
+        children: this
+            .widget
+            .slideShowItems
+            .map(
+              (e) =>
+                  PageItemWidget.fromPageItem(e, () => {}, scrollable: false),
+            )
+            .toList(),
+      );
+    } else {
+      return FirstOpenSlideshowFrame(
+        () {
+          SharedPreferences.getInstance().then((prefs) {
+            prefs.setBool(FirstOpenSlideshowFrame.FIRST_RUN_PREF_KEY, false);
+          });
+          setState(() => finishedShowing = true);
+        },
+        pageItems: this.widget.slideShowItems,
+        stringForNext: this.widget.stringForNext,
+        animationDuration: this.widget.animationDuration,
+      );
+    }
   }
 }

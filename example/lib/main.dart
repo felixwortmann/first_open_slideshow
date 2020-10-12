@@ -1,5 +1,4 @@
 import 'package:first_open_slideshow/first_open_slideshow.dart';
-import 'package:first_open_slideshow/first_open_slideshow_frame.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,21 +6,23 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  static PageItem slideshowItemExample1(final BuildContext context) => PageItem(
-        titleText: "Test1",
-        icon: Container(
-          width: 200,
-          height: 200,
-          color: Colors.green,
-        ),
-        captionWidget: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text("This is a caption"),
-        ),
-        buttonText: "Some button text",
-      );
+  static SlideshowPage slideshowItemExample1(final BuildContext context) =>
+      SlideshowPage(
+          titleText: "Test1",
+          icon: Container(
+            width: 200,
+            height: 200,
+            color: Colors.green,
+          ),
+          captionWidget: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text("This is a caption"),
+          ),
+          buttonText: "Some button text",
+          bottomWidget: Center(child: Text("SomeBottomText")));
 
-  static PageItem slideshowItemExample2(final BuildContext context) => PageItem(
+  static SlideshowPage slideshowItemExample2(final BuildContext context) =>
+      SlideshowPage(
         titleText: "Test2",
         icon: Container(
           width: 200,
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Slideshow(
-        listViewInsteadOfSlideshow: true,
+        // listViewInsteadOfSlideshow: true,
         stringForNext: "Next",
         slideShowItems: [
           slideshowItemExample1(context),

@@ -1,9 +1,11 @@
-import 'package:first_open_slideshow/first_open_slideshow_frame.dart';
+import 'package:first_open_slideshow/src/first_open_slideshow_frame.dart';
+import 'package:first_open_slideshow/src/slideshow_page.dart';
 import 'package:flutter/material.dart';
 
 const bool _DEFAULT_SCROLLABLE_VALUE = true;
 
-class PageItemWidget extends StatelessWidget {
+/// Docs for attributes are in [SlideshowPage]
+class SlideshowPageWidget extends StatelessWidget {
   final String titleText;
   final String captionText;
   final String buttonText;
@@ -12,9 +14,10 @@ class PageItemWidget extends StatelessWidget {
   final VoidCallback nextPressed;
   final bool centerTitle;
   final bool scrollable;
+  final Widget bottomWidget;
 
   ///caption Text or Caption Widget are Required
-  const PageItemWidget(
+  const SlideshowPageWidget(
       {Key key,
       @required this.titleText,
       this.icon,
@@ -23,22 +26,23 @@ class PageItemWidget extends StatelessWidget {
       this.nextPressed,
       this.centerTitle,
       this.scrollable = _DEFAULT_SCROLLABLE_VALUE,
-      this.buttonText})
+      this.buttonText,
+      this.bottomWidget})
       : super(key: key);
 
-  static PageItemWidget fromPageItem(
-          final PageItem pageItem, final VoidCallback nextPressed,
+  static SlideshowPageWidget fromSlideshowPage(
+          final SlideshowPage slideshowPage, final VoidCallback nextPressed,
           {final bool scrollable = _DEFAULT_SCROLLABLE_VALUE}) =>
-      PageItemWidget(
-        titleText: pageItem.titleText,
-        captionText: pageItem.captionText,
-        icon: pageItem.icon,
-        captionWidget: pageItem.captionWidget,
-        nextPressed: nextPressed,
-        buttonText: pageItem.buttonText,
-        centerTitle: pageItem.centerTitle,
-        scrollable: scrollable,
-      );
+      SlideshowPageWidget(
+          titleText: slideshowPage.titleText,
+          captionText: slideshowPage.captionText,
+          icon: slideshowPage.icon,
+          captionWidget: slideshowPage.captionWidget,
+          nextPressed: nextPressed,
+          buttonText: slideshowPage.buttonText,
+          centerTitle: slideshowPage.centerTitle,
+          scrollable: scrollable,
+          bottomWidget: slideshowPage.bottomWidget);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +50,7 @@ class PageItemWidget extends StatelessWidget {
     if (captionText != null) {
       captionWidget = Padding(
         padding: const EdgeInsets.all(16.0),
-        child: PageText(captionText),
+        child: SlideshowPageText(captionText),
       );
     }
     return Material(
@@ -99,12 +103,13 @@ class PageItemWidget extends StatelessWidget {
             : Container(),
       ];
 
-  List<Widget> contentWidgets(captionWidget) => [
+  List<Widget> contentWidgets(captionWidget) =>
+      [
         icon != null
             ? Padding(
                 padding:
                     const EdgeInsets.only(left: 16.0, right: 16.0, top: 100),
-                child: PageIconContainer(
+                child: SlideshowPageIconContainer(
                   icon,
                 ),
               )
@@ -116,5 +121,6 @@ class PageItemWidget extends StatelessWidget {
               ) ??
               Container(),
         ),
-      ];
+      ] +
+      [bottomWidget ?? Offstage()];
 }

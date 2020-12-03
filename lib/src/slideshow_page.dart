@@ -26,6 +26,9 @@ class SlideshowPage {
   /// Defines Widget for the bottom, usually is something minor like a privacy policy link
   final Widget bottomWidget;
 
+  /// Color of the text on the button
+  final Color nextButtonTextColor;
+
   SlideshowPage(
       {@required this.titleText,
       this.icon,
@@ -33,6 +36,7 @@ class SlideshowPage {
       this.captionText,
       this.centerTitle,
       this.captionWidget,
+      this.nextButtonTextColor,
       this.bottomWidget})
 
       /// Caption Text or Caption Widget are required only one can be provided
@@ -57,13 +61,13 @@ class SlideshowPageText extends StatelessWidget {
   final String text;
   final Color color;
 
-  SlideshowPageText(this.text,{this.color});
+  SlideshowPageText(this.text, {this.color});
 
   @override
   Widget build(BuildContext context) {
     return Text(
       this.text,
-      style: TextStyle(fontSize: 20,color: color),
+      style: TextStyle(fontSize: 20, color: color),
     );
   }
 }

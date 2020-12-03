@@ -55,14 +55,15 @@ class SlideshowPageIconContainer extends StatelessWidget {
 
 class SlideshowPageText extends StatelessWidget {
   final String text;
+  final Color color;
 
-  SlideshowPageText(this.text);
+  SlideshowPageText(this.text,{this.color});
 
   @override
   Widget build(BuildContext context) {
     return Text(
       this.text,
-      style: TextStyle(fontSize: 20),
+      style: TextStyle(fontSize: 20,color: color),
     );
   }
 }

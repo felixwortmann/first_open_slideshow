@@ -15,6 +15,7 @@ class SlideshowPageWidget extends StatelessWidget {
   final bool centerTitle;
   final bool scrollable;
   final Widget bottomWidget;
+  final Color nextButtonTextColor;
 
   ///caption Text or Caption Widget are Required
   const SlideshowPageWidget(
@@ -27,22 +28,25 @@ class SlideshowPageWidget extends StatelessWidget {
       this.centerTitle,
       this.scrollable = _DEFAULT_SCROLLABLE_VALUE,
       this.buttonText,
-      this.bottomWidget})
+      this.bottomWidget,
+      this.nextButtonTextColor})
       : super(key: key);
 
   static SlideshowPageWidget fromSlideshowPage(
           final SlideshowPage slideshowPage, final VoidCallback nextPressed,
           {final bool scrollable = _DEFAULT_SCROLLABLE_VALUE}) =>
       SlideshowPageWidget(
-          titleText: slideshowPage.titleText,
-          captionText: slideshowPage.captionText,
-          icon: slideshowPage.icon,
-          captionWidget: slideshowPage.captionWidget,
-          nextPressed: nextPressed,
-          buttonText: slideshowPage.buttonText,
-          centerTitle: slideshowPage.centerTitle,
-          scrollable: scrollable,
-          bottomWidget: slideshowPage.bottomWidget);
+        titleText: slideshowPage.titleText,
+        captionText: slideshowPage.captionText,
+        icon: slideshowPage.icon,
+        captionWidget: slideshowPage.captionWidget,
+        nextPressed: nextPressed,
+        buttonText: slideshowPage.buttonText,
+        centerTitle: slideshowPage.centerTitle,
+        scrollable: scrollable,
+        bottomWidget: slideshowPage.bottomWidget,
+        nextButtonTextColor: slideshowPage.nextButtonTextColor,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +99,8 @@ class SlideshowPageWidget extends StatelessWidget {
                     onPressed: () => nextPressed(),
                     child: Text(
                       buttonText ?? FirstOpenSlideshowFrame.stringForNext,
-                      style: TextStyle(fontSize: 16),
+                      style:
+                          TextStyle(fontSize: 16, color: nextButtonTextColor),
                     ),
                   ),
                 ),

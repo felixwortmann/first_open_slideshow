@@ -1,6 +1,6 @@
 name: first_open_slideshow
 description: Display a slideshow on first open
-version: 0.0.5
+version: 0.0.7
 homepage: https://github.com/felixwortmann/first_open_slideshow
 
 environment:

@@ -1,4 +1,4 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.1]
 
 * Initial Release
 
@@ -22,3 +22,11 @@
 * Renamed PageText to SlideshowPageText
 * Renamed PageIconContainer to SlideshowPageIconContainer
 * Restructured directories
+
+## [0.0.6]
+
+* added possibility to change the text color
+
+## [0.0.7]
+
+* added possibility to change the text color of the "next" button

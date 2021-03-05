@@ -9,9 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flare_splash_screen: ^3.0.0
-  shared_preferences: ^0.5.12
-  animations: ^1.1.2
+  flare_splash_screen: ^3.0.2
+  shared_preferences: ">=2.0.0<3.0.0"
+  animations: ">=2.0.0 <3.0.0"
 
 
 dev_dependencies:

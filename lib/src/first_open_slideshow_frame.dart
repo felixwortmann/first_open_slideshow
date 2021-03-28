@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:animations/animations.dart';
+import 'package:first_open_slideshow/dependencies/flare_splash_screen.dart';
 import 'package:first_open_slideshow/src/slideshow_page.dart';
 import 'package:first_open_slideshow/src/slideshow_page_widget.dart';
-import 'package:flare_splash_screen/flare_splash_screen.dart';
 import 'package:flutter/material.dart';
 
 const double PAGE_ITEM_ICON_SIZE = 250;

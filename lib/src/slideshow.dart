@@ -13,7 +13,7 @@ class Slideshow extends StatefulWidget {
 
   /// Defines a custom LoadingPage - when null this shows a [CircularProgressIndicator]
   /// Is used when [SharedPreferences] are loaded
-  final Widget loadingPage;
+  final Widget? loadingPage;
 
   /// Pages for your Slideshow
   final List<SlideshowPage> slideShowItems;
@@ -28,10 +28,10 @@ class Slideshow extends StatefulWidget {
   final bool listViewInsteadOfSlideshow;
 
   const Slideshow({
-    Key key,
-    @required this.whenFinished,
-    @required this.slideShowItems,
-    @required this.stringForNext,
+    Key? key,
+    required this.whenFinished,
+    required this.slideShowItems,
+    required this.stringForNext,
     this.animationDuration = const Duration(milliseconds: 300),
     this.loadingPage,
     this.listViewInsteadOfSlideshow = false,

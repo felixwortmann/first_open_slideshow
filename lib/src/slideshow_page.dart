@@ -8,29 +8,29 @@ class SlideshowPage {
 
   /// Text for the caption
   /// (one of [captionText] and [captionWidget] has to be filled. Also only one can be filled)
-  final String captionText;
+  final String? captionText;
 
   /// Text for the Button (Button is only showed when != null and notEmpty)
-  final String buttonText;
+  final String? buttonText;
 
   /// Icon for the [SlideshowPage]
-  final Widget icon;
+  final Widget? icon;
 
   /// Widget for the caption
   /// (one of [captionText] and [captionWidget] has to be filled. Also only one can be filled)
-  final Widget captionWidget;
+  final Widget? captionWidget;
 
   /// Defines if the Title is centered in in the AppBar
-  final bool centerTitle;
+  final bool? centerTitle;
 
   /// Defines Widget for the bottom, usually is something minor like a privacy policy link
-  final Widget bottomWidget;
+  final Widget? bottomWidget;
 
   /// Color of the text on the button
-  final Color nextButtonTextColor;
+  final Color? nextButtonTextColor;
 
   SlideshowPage(
-      {@required this.titleText,
+      {required this.titleText,
       this.icon,
       this.buttonText,
       this.captionText,
@@ -45,9 +45,9 @@ class SlideshowPage {
 }
 
 class SlideshowPageIconContainer extends StatelessWidget {
-  final Widget icon;
+  final Widget? icon;
 
-  const SlideshowPageIconContainer(this.icon, {Key key}) : super(key: key);
+  const SlideshowPageIconContainer(this.icon, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -58,15 +58,15 @@ class SlideshowPageIconContainer extends StatelessWidget {
 }
 
 class SlideshowPageText extends StatelessWidget {
-  final String text;
-  final Color color;
+  final String? text;
+  final Color? color;
 
   SlideshowPageText(this.text, {this.color});
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      this.text,
+      this.text!,
       style: TextStyle(fontSize: 20, color: color),
     );
   }

@@ -7,20 +7,20 @@ const bool _DEFAULT_SCROLLABLE_VALUE = true;
 /// Docs for attributes are in [SlideshowPage]
 class SlideshowPageWidget extends StatelessWidget {
   final String titleText;
-  final String captionText;
-  final String buttonText;
-  final Widget icon;
-  final Widget captionWidget;
-  final VoidCallback nextPressed;
-  final bool centerTitle;
+  final String? captionText;
+  final String? buttonText;
+  final Widget? icon;
+  final Widget? captionWidget;
+  final VoidCallback? nextPressed;
+  final bool? centerTitle;
   final bool scrollable;
-  final Widget bottomWidget;
-  final Color nextButtonTextColor;
+  final Widget? bottomWidget;
+  final Color? nextButtonTextColor;
 
   ///caption Text or Caption Widget are Required
   const SlideshowPageWidget(
-      {Key key,
-      @required this.titleText,
+      {Key? key,
+      required this.titleText,
       this.icon,
       this.captionText,
       this.captionWidget,
@@ -50,7 +50,7 @@ class SlideshowPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget captionWidget = this.captionWidget;
+    Widget? captionWidget = this.captionWidget;
     if (captionText != null) {
       captionWidget = Padding(
         padding: const EdgeInsets.all(16.0),
@@ -96,7 +96,7 @@ class SlideshowPageWidget extends StatelessWidget {
                     color: Theme.of(context).accentColor,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
-                    onPressed: () => nextPressed(),
+                    onPressed: () => nextPressed!(),
                     child: Text(
                       buttonText ?? FirstOpenSlideshowFrame.stringForNext,
                       style:

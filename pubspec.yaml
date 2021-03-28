@@ -4,7 +4,7 @@ version: 0.0.7
 homepage: https://github.com/felixwortmann/first_open_slideshow
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:

@@ -12,13 +12,13 @@ class FirstOpenSlideshowFrame extends StatefulWidget {
   static String stringForNext = "";
   final List<SlideshowPage> pageItems;
   final VoidCallback finishCallback;
-  final Duration animationDuration;
+  final Duration? animationDuration;
 
   FirstOpenSlideshowFrame(
     this.finishCallback, {
-    Key key,
-    @required this.pageItems,
-    @required stringForNext,
+    Key? key,
+    required this.pageItems,
+    required stringForNext,
     this.animationDuration,
   }) {
     FirstOpenSlideshowFrame.stringForNext = stringForNext;
@@ -35,65 +35,62 @@ class _FirstOpenSlideshowFrameState extends State<FirstOpenSlideshowFrame> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Stack(
-        children: [
-          PageTransitionSwitcher(
-              duration: this.widget.animationDuration,
-              transitionBuilder: (
-                Widget child,
-                Animation<double> animation,
-                Animation<double> secondaryAnimation,
-              ) {
-                return SharedAxisTransition(
-                    animation: animation,
-                    secondaryAnimation: secondaryAnimation,
-                    transitionType: SharedAxisTransitionType.horizontal,
-                    child: child);
-              },
-              child: Container(
-                key: ValueKey<int>(this.currentPage),
-                child: SlideshowPageWidget.fromSlideshowPage(
-                  widget.pageItems[currentPage],
-                  () {
-                    if (widget.pageItems[currentPage] ==
-                        widget.pageItems.last) {
-                      finishPage(context);
-                    } else {
-                      setState(() {
-                        currentPage++;
-                      });
-                    }
-                  },
-                ),
-              )),
-          showOverlay
-              ? BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-                  child: Center(
-                    child: Container(
-                      width: PAGE_ITEM_ICON_SIZE,
-                      height: PAGE_ITEM_ICON_SIZE,
-                      child: SplashScreen.callback(
-                        name: 'assets/flare/send_success.flr',
-                        onSuccess: (_) {
-                          widget.finishCallback();
-                        },
-                        onError: (_, __) {
-                          widget.finishCallback();
-                        },
-                        startAnimation: 'Untitled',
-                        until: () => Future.delayed(
-                          Duration(seconds: 1),
-                        ),
-                        endAnimation: '1',
+    return Stack(
+      children: [
+        PageTransitionSwitcher(
+            duration: this.widget.animationDuration!,
+            transitionBuilder: (
+              Widget child,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+            ) {
+              return SharedAxisTransition(
+                  animation: animation,
+                  secondaryAnimation: secondaryAnimation,
+                  transitionType: SharedAxisTransitionType.horizontal,
+                  child: child);
+            },
+            child: Container(
+              key: ValueKey<int>(this.currentPage),
+              child: SlideshowPageWidget.fromSlideshowPage(
+                widget.pageItems[currentPage],
+                () {
+                  if (widget.pageItems[currentPage] == widget.pageItems.last) {
+                    finishPage(context);
+                  } else {
+                    setState(() {
+                      currentPage++;
+                    });
+                  }
+                },
+              ),
+            )),
+        showOverlay
+            ? BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
+                child: Center(
+                  child: Container(
+                    width: PAGE_ITEM_ICON_SIZE,
+                    height: PAGE_ITEM_ICON_SIZE,
+                    child: SplashScreen.callback(
+                      name: 'assets/flare/send_success.flr',
+                      onSuccess: (_) {
+                        widget.finishCallback();
+                      },
+                      onError: (_, __) {
+                        widget.finishCallback();
+                      },
+                      startAnimation: 'Untitled',
+                      until: () => Future.delayed(
+                        Duration(seconds: 1),
                       ),
+                      endAnimation: '1',
                     ),
                   ),
-                )
-              : Container(),
-        ],
-      ),
+                ),
+              )
+            : Container(),
+      ],
     );
   }
 

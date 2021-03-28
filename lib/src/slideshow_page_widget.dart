@@ -122,9 +122,8 @@ class SlideshowPageWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 30.0),
           child: Center(
-                child: captionWidget,
-              ) ??
-              Container(),
+            child: captionWidget,
+          ),
         ),
       ] +
       [bottomWidget ?? Offstage()];

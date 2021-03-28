@@ -38,33 +38,34 @@ class _FirstOpenSlideshowFrameState extends State<FirstOpenSlideshowFrame> {
     return Stack(
       children: [
         PageTransitionSwitcher(
-            duration: this.widget.animationDuration!,
-            transitionBuilder: (
-              Widget child,
-              Animation<double> animation,
-              Animation<double> secondaryAnimation,
-            ) {
-              return SharedAxisTransition(
-                  animation: animation,
-                  secondaryAnimation: secondaryAnimation,
-                  transitionType: SharedAxisTransitionType.horizontal,
-                  child: child);
-            },
-            child: Container(
-              key: ValueKey<int>(this.currentPage),
-              child: SlideshowPageWidget.fromSlideshowPage(
-                widget.pageItems[currentPage],
-                () {
-                  if (widget.pageItems[currentPage] == widget.pageItems.last) {
-                    finishPage(context);
-                  } else {
-                    setState(() {
-                      currentPage++;
-                    });
-                  }
-                },
-              ),
-            )),
+          duration: this.widget.animationDuration!,
+          transitionBuilder: (
+            Widget child,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) {
+            return SharedAxisTransition(
+                animation: animation,
+                secondaryAnimation: secondaryAnimation,
+                transitionType: SharedAxisTransitionType.horizontal,
+                child: child);
+          },
+          child: Container(
+            key: ValueKey<int>(this.currentPage),
+            child: SlideshowPageWidget.fromSlideshowPage(
+              widget.pageItems[currentPage],
+              () {
+                if (widget.pageItems[currentPage] == widget.pageItems.last) {
+                  finishPage(context);
+                } else {
+                  setState(() {
+                    currentPage++;
+                  });
+                }
+              },
+            ),
+          ),
+        ),
         showOverlay
             ? BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),

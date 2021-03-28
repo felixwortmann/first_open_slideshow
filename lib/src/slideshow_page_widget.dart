@@ -87,15 +87,16 @@ class SlideshowPageWidget extends StatelessWidget {
         ),
         nextPressed != null
             ? Padding(
-                padding:
-                    EdgeInsets.only(top: 8, bottom: 8, left: 16, right: 16),
+                padding: EdgeInsets.all(24),
                 child: ConstrainedBox(
                   constraints:
                       BoxConstraints(minWidth: double.infinity, minHeight: 50),
-                  child: RaisedButton(
-                    color: Theme.of(context).accentColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Theme.of(context).accentColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                    ),
                     onPressed: () => nextPressed!(),
                     child: Text(
                       buttonText ?? FirstOpenSlideshowFrame.stringForNext,

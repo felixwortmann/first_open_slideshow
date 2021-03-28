@@ -30,3 +30,11 @@
 ## [0.0.7]
 
 * added possibility to change the text color of the "next" button
+
+## [0.0.8-nullsafety]
+
+* migrate to null safety
+
+## [0.0.8-nullsafety.1]
+
+* migrate to null safety

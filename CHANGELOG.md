@@ -38,3 +38,7 @@
 ## [0.0.8-nullsafety.1]
 
 * migrate to null safety
+
+## [1.0.0]
+
+* first official null safe release

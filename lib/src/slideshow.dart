@@ -27,6 +27,10 @@ class Slideshow extends StatefulWidget {
   /// Defines if the [Slideshow] shows the Widgets in a List
   final bool listViewInsteadOfSlideshow;
 
+  /// Can be used to override the shared preferences and always show the [Slideshow]
+  /// Default to false
+  final bool overrideAlwaysShowSlideshow;
+
   const Slideshow({
     Key? key,
     required this.whenFinished,
@@ -35,6 +39,7 @@ class Slideshow extends StatefulWidget {
     this.animationDuration = const Duration(milliseconds: 300),
     this.loadingPage,
     this.listViewInsteadOfSlideshow = false,
+    this.overrideAlwaysShowSlideshow = false,
   }) : super(key: key);
 
   @override
@@ -51,7 +56,7 @@ class _SlideshowState extends State<Slideshow> {
       SharedPreferences.getInstance().then((prefs) {
         setState(() {
           loading = false;
-          finishedShowing =
+          finishedShowing = widget.overrideAlwaysShowSlideshow ||
               !(prefs.getBool(FirstOpenSlideshowFrame.FIRST_RUN_PREF_KEY) ??
                   true);
         });
@@ -80,9 +85,9 @@ class _SlideshowState extends State<Slideshow> {
             .widget
             .slideShowItems
             .map(
-              (final SlideshowPage pageItem) => SlideshowPageWidget.fromSlideshowPage(
-                  pageItem, () => {},
-                  scrollable: false),
+              (final SlideshowPage pageItem) =>
+                  SlideshowPageWidget.fromSlideshowPage(pageItem, () => {},
+                      scrollable: false),
             )
             .toList(),
       );

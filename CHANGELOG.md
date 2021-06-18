@@ -42,3 +42,7 @@
 ## [1.0.0]
 
 * first official null safe release
+
+## [1.0.1]
+
+* Add an option to override and always show the slideshow

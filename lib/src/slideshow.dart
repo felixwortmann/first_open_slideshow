@@ -52,11 +52,11 @@ class _SlideshowState extends State<Slideshow> {
 
   @override
   void initState() {
-    if (loading) {
+    if (!widget.overrideAlwaysShowSlideshow && loading) {
       SharedPreferences.getInstance().then((prefs) {
         setState(() {
           loading = false;
-          finishedShowing = widget.overrideAlwaysShowSlideshow ||
+          finishedShowing = 
               !(prefs.getBool(FirstOpenSlideshowFrame.FIRST_RUN_PREF_KEY) ??
                   true);
         });
